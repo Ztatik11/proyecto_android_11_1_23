@@ -9,6 +9,7 @@
  import { Text, View,FlatList,StyleSheet, TextInput,Switch,Button,SafeAreaView} from 'react-native';
  import { NavigationContainer } from '@react-navigation/native';
  import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+ import { DebugInstructions } from "react-native/Libraries/NewAppScreen";
  //import Ionicons from 'react-native-vector-icons/Ionicons';
  function Formulario() {
   const [nombre,setNombre] =useState(null)
@@ -35,11 +36,16 @@
             onChangeText={precio=>Validacion_campo_precio(precio)}
           />
         </View>
-      <Button
-        onPress={introducir_fruta}
-        title={"Insertar"}
-      />
+        <View>
+          <Button
+            /***/
+            onPress={nombre != null && precio!=null ? introducir_fruta(): console.log("Datos no validos")}
+            title={"Insertar"}
+          />
+        </View>
+        
     </View>
+    
   )
   function validacion_campo_nombre(nombre){
     const solo_texto = /[a-zA-ZÁ-ÿ\s]+$/
@@ -49,6 +55,7 @@
       setNombre(nombre)
     } else {
       setvalidacion_nombre(false)
+      setNombre(nombre)
     }
   }
   
@@ -59,35 +66,33 @@
         setvalidacion_Precio(true)
         setPrecio(precio)
       } else {
-        setvalidacion_edad(false)
+        setvalidacion_Precio(false)
+        setNombre(nombre)
       }
     }
+
+    function introducir_fruta() {
+      fetch('http://192.168.137.1:8080/fruits', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        name: nombre,
+        price: precio,
+        }),
+      })
+      
+      .then((response) => response.json())
+      .then((responseData) => {
+          console.log(
+              "POST Response",
+              "Response Body -> " + JSON.stringify(responseData)
+          )
+      }).catch();
  }
 
- function introducir_fruta({fruta_p,precio_p}) {
-  const fruta=fruta_p;
-  const precio=precio_p;
-  
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
-    "name": {fruta},
-    "price": {precio}
-  });
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
-
-  fetch("http://192.168.137.1:8080/fruits", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
- }
 function Frutas() {
   const [fruits,setfruits] = useState(null);
 
@@ -102,9 +107,9 @@ function Frutas() {
     .catch(error => console.log(error));
   }, [])
   const renderItem = ({ item }) => (
-    <View>
-       <Text>{item.name}</Text>
-       <Text>{item.price}</Text>
+    <View style={{flex: 1, justifyContent: 'center' ,padding: 20, margin: 10, backgroundColor: 'white', borderWidth: 5}}>
+        <Text style={{ flex: 1, textAlign:'center', alignItems: 'center', justifyContent: 'center', color: 'black' }}>{item.name}</Text>
+        <Text style={{ flex: 1, textAlign:'center', alignItems: 'center', justifyContent: 'center', color: 'black', }}>{item.price}</Text>
     </View>
   )
     return (
@@ -143,7 +148,7 @@ function Frutas() {
           })}
         >
           <Tab.Screen name="Frutas" component={Frutas} />
-          <Tab.Screen name="Insertar fruta" component={Formulario} />
+          <Tab.Screen name="Insertar_fruta" component={Formulario} />
         </Tab.Navigator>
       </NavigationContainer>
     );
@@ -203,4 +208,4 @@ const styles = StyleSheet.create({
 });
 
  
- 
+}
