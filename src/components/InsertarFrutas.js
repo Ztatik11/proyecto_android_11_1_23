@@ -53,7 +53,7 @@ export default function Formulario() {
     }
     
     function Validacion_campo_precio(precio){
-      const solo_numero = /[0-9\s]+$/
+      const solo_numero = /^[0-9]+([,][0-9]+)?$/
         if (solo_numero.test(precio)) {
           console.log("Validacion 3")
           setvalidacion_Precio(true)

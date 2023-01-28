@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-ionicons'
 import Frutas from "./ListaFrutas";
 import Formulario from "./InsertarFrutas";
 
@@ -26,14 +26,14 @@ const Tab = createBottomTabNavigator();
               }
   
               // You can return any component that you like here!
-              //return <Ionicons name={iconName} size={size} color={color} />;
+              return <Icon name={iconName} size={size} color={color} />;
             },
             tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarInactiveTintColor: 'green',
           })}
         >
           <Tab.Screen name="Frutas" component={Frutas} />
-          <Tab.Screen name="Insertar_fruta" component={Formulario} />
+          <Tab.Screen name="Insertar fruta" component={Formulario} />
         </Tab.Navigator>
       </NavigationContainer>
     );

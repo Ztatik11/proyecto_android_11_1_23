@@ -5,12 +5,12 @@ import { StyleSheet } from "react-native";
     
     titulo:{
       fontSize:50,
-      color:'white',
+      color:'black',
     },
     aplicacion:{
       alignItems:"center",
       flex:1,
-      backgroundColor:"black",
+      backgroundColor:"#50F874",
     },
     contenedor_datos:{
       flexDirection:"row",
@@ -29,16 +29,16 @@ import { StyleSheet } from "react-native";
     },
   
     cuadrotexto_bien:{
-      backgroundColor:"white",
-      color:'white',
+      backgroundColor:"#E7D78E",
+      color:'black',
       borderColor:'grey',
       borderWidth:1,
       width:200,
     },
   
     cuadrotexto_mal:{
-      backgroundColor:"white",
-      color:'white',
+      backgroundColor:"#E7D78E",
+      color:'black',
       borderColor:'red',
       borderWidth:1,
       width:200,

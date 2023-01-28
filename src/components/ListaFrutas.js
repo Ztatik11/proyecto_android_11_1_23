@@ -25,13 +25,19 @@ export default function Frutas() {
       })
       .catch(error => console.log(error));
     }, [])
+/*
+    function borrar_fruta(id){
+      fetch('http://192.168.0.21:8080/fruits/'+id, { method: 'DELETE' })
+      .then(() => this.setState({ status: 'Delete successful' }));
+    }
+*/
     const renderItem = ({ item }) => (
       <View style={frutas.contenedor_fruta}>
           <Image style={frutas.imagen_fruta} source={imageMap[item.name + '.jpg']}/>
           <Text style={frutas.texto_fruta}>Nombre: {item.name}</Text>
           <Text style={frutas.texto_fruta}>Precio: {item.price}</Text>
           <Button
-            onPress={() => console.log("Borra_frutonsia")}
+            onPress={() => console.log("Intentar borrar fruta")}
             title={"Borrar frutonsia"}
           />
       </View>
@@ -43,4 +49,5 @@ export default function Frutas() {
           renderItem={renderItem} 
           keyExtractor={item=>item.id}/>
     )
+
 }

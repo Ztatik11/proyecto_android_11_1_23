@@ -9,7 +9,7 @@ const frutas = StyleSheet.create({
       flex: 1,
       justifyContent: 'center' ,
       padding: 20, margin: 10,
-      backgroundColor: 'white',
+      backgroundColor: '#50F874',
       borderWidth: 5,
     },
     texto_fruta:{
@@ -27,7 +27,7 @@ const frutas = StyleSheet.create({
       justifyContent: 'center',
       textAlign:'center',
       borderWidth: 3,
-      borderColor: "red",
+      borderColor: "#DB6157",
       float: "left"
     }
 });    
