@@ -1,5 +1,5 @@
 import React , {useState,useEffect} from "react";
-import {Text, View,FlatList,Image,Button} from 'react-native';
+import {Text, View,FlatList,Image,Button,Alert} from 'react-native';
 import frutas from "../styles/ListasFrutas";
 
 
@@ -37,17 +37,18 @@ export default function Frutas() {
           <Text style={frutas.texto_fruta}>Nombre: {item.name}</Text>
           <Text style={frutas.texto_fruta}>Precio: {item.price}</Text>
           <Button
-            onPress={() => console.log("Intentar borrar fruta")}
+            onPress={() => {Alert.alert("Elminada","Fruta eliminada correctamente", [
+              {text: "OK",onPress:() => console.log("Alerta cerrada")}
+            ])} }
             title={"Borrar frutonsia"}
           />
       </View>
     )
       return (
-        
-          <FlatList
-          data={fruits}
-          renderItem={renderItem} 
-          keyExtractor={item=>item.id}/>
+        <FlatList
+        data={fruits}
+        renderItem={renderItem} 
+        keyExtractor={item=>item.id}/>
     )
 
 }

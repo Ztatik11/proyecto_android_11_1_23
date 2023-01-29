@@ -1,5 +1,5 @@
 import React , {useState} from "react";
-import { Text, View,TextInput,Button} from 'react-native';
+import { Text, View,TextInput,Button,Alert} from 'react-native';
 import estiloformulario from "../styles/InsertarFrutas";
 
 
@@ -11,10 +11,24 @@ export default function Formulario() {
     const [precio,setPrecio] =useState(null)
     const [Validacion_nombre,setvalidacion_nombre] =useState(false)
     const [Validacion_precio,setvalidacion_Precio] =useState(false)
+
+    function comprobacion_fruta (nombre){
+      
+      if (Validacion_nombre==true && Validacion_precio==true) {
+        introducir_fruta()
+        Alert.alert("Bien hecho!!","Fruta introducida", [
+          {text: "OK",onPress:() => console.log("Alerta cerrada")}
+        ])
+      } else {
+        Alert.alert("OOOPSS!!","Fruta introducida incorrectamente", [
+          {text: "OK",onPress:() => console.log("Alerta cerrada")}
+        ])
+      }
+    }
     
     return(
       <View style ={[estiloformulario.aplicacion]}>
-          <Text style ={[estiloformulario.titulo]}>FORMULARIO</Text>
+          <Text style ={[estiloformulario.titulo]}>AÑADIR FRUTA</Text>
           <View style ={[estiloformulario.contenedor_datos]}>
             <Text>Nombre fruta:</Text>
               <TextInput style ={Validacion_nombre ? [estiloformulario.cuadrotexto_bien]:[estiloformulario.cuadrotexto_mal]}
@@ -33,9 +47,10 @@ export default function Formulario() {
           </View>
           <View>
             <Button
-              onPress={() => nombre != null || precio!=null ? introducir_fruta(): console.log("Datos no validos")}
+              onPress={() => comprobacion_fruta()}
               title={"Insertar"}
             />
+            
           </View>
       </View>
     )
@@ -53,7 +68,7 @@ export default function Formulario() {
     }
     
     function Validacion_campo_precio(precio){
-      const solo_numero = /^[0-9]+([,][0-9]+)?$/
+      const solo_numero = /^[0-9]+([.][0-9]+)?$/
         if (solo_numero.test(precio)) {
           console.log("Validacion 3")
           setvalidacion_Precio(true)
@@ -65,7 +80,7 @@ export default function Formulario() {
       }
   
       function introducir_fruta() {
-        console.log(nombre,precio);
+        
         /**'http://192.168.137.1:8080/fruits' */
         /**'http://192.168.0.21:8080/fruits' */
         fetch('http://192.168.0.21:8080/fruits', {
@@ -87,6 +102,7 @@ export default function Formulario() {
           "Response Body -> " + JSON.stringify(responseData)
           )
         }).catch();
+        
     }
     
   }
