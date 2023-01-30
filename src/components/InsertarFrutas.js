@@ -83,7 +83,7 @@ export default function Formulario() {
         
         /**'http://192.168.137.1:8080/fruits' */
         /**'http://192.168.0.21:8080/fruits' */
-        fetch('http://192.168.0.21:8080/fruits', {
+        fetch('http://192.168.137.1:8080/fruits', {
           method: 'POST',
           headers: {
             Accept: 'application/json',

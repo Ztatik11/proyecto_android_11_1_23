@@ -5,6 +5,7 @@ import frutas from "../styles/ListasFrutas";
 
 
 export default function Frutas() {
+
     const [fruits,setfruits] = useState(null);
     var imageMap = { 
        'uvas.jpg' : require('../assets/img/uvas.jpg'),
@@ -17,7 +18,7 @@ export default function Frutas() {
       }
     useEffect(() => {
       
-      fetch("http://192.168.0.21:8080/fruits")
+      fetch("http://192.168.137.1:8080/fruits")
       .then(response => response.json()) 
       .then((response) => {
         console.log("OBTENIENDO DATOS DE LA API FRUTA",response)
@@ -25,19 +26,25 @@ export default function Frutas() {
       })
       .catch(error => console.log(error));
     }, [])
-/*
+
     function borrar_fruta(id){
-      fetch('http://192.168.0.21:8080/fruits/'+id, { method: 'DELETE' })
-      .then(() => this.setState({ status: 'Delete successful' }));
+      fetch("http://192.168.137.1:8080/fruits/"+ id, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .catch(e => console.log(e))
+      alert('Deleted successfully')
     }
-*/
+
     const renderItem = ({ item }) => (
       <View style={frutas.contenedor_fruta}>
           <Image style={frutas.imagen_fruta} source={imageMap[item.name + '.jpg']}/>
           <Text style={frutas.texto_fruta}>Nombre: {item.name}</Text>
           <Text style={frutas.texto_fruta}>Precio: {item.price}</Text>
           <Button
-            onPress={() => {Alert.alert("Elminada","Fruta eliminada correctamente", [
+            onPress={() => {
+              borrar_fruta(item.id)
+              Alert.alert("Elminada","Fruta eliminada correctamente", [
               {text: "OK",onPress:() => console.log("Alerta cerrada")}
             ])} }
             title={"Borrar frutonsia"}
